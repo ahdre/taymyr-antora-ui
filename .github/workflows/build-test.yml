@@ -6,11 +6,14 @@ on:
   push:
     branches:
       - main # Check branch after merge
+      - publish-pages # Check branch after merge
 
 jobs:
   check:
     name: Check
     uses: ./.github/workflows/bundle.yml
+    with:
+      publish-pages: ${{ github.event_name == 'push' && github.ref_name == 'publish-pages' }}
 
   finish:
     name: Finish
